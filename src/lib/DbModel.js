@@ -13,7 +13,8 @@ class DbModel {
 	}
 
 	insertMany(data) {
-		return this.col.insertMany(data);
+		return this.col.remove()
+			.then(() => this.col.insertMany(data));
 	}
 
 	findOne(query, proj) {

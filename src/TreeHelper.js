@@ -23,21 +23,23 @@ async function makeNestedTree(data) {
 	return levels[0].children;
 }
 
-module.exports.storeTree = async () => {
+module.exports.storeTree = async (id) => {
 	const colSize = await tm.count();
+	const rootId = id || conf.get('rootNodeId');
 
 	if(colSize > 0 && !conf.get('db.forceUpdate')) {
 		return Promise.reject('Collection already exists. Use config settings "db.forceUpdate = true".');
 	}
+
 	// fetch data from remote web-site
 	winston.profile('fetch');
-	let data = await tr.getLinearTree(conf.get('rootNodeId'));
+	let data = await tr.getLinearTree(rootId);
 	winston.profile('fetch');
 	
 	// sorting fetched data before insert into DB
 	data = _.sortBy(data, ['name']);
 
-	return tm.insertMany();
+	return tm.insertMany(data);
 }
 
 module.exports.getTree = async (nodeName) => {

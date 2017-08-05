@@ -7,9 +7,9 @@ function boot () {
 	const th = require('./src/TreeHelper');
 	switch (argv._[0]) {
 		case 'fetch':
-			const param = argv._[1];
-			return th.storeTree()
-				.then(data => console.log(data));
+			const id = argv._[1];
+			return th.storeTree(id)
+				.then(data => console.log(data.insertedCount));
 			break;
 		case 'tree':
 			const nodeName = argv._[1];
@@ -31,5 +31,5 @@ db.connect(conf.get('db.url'))
 	.then(() => db.get().close())
 	.catch((e) => {
 		console.error(e);
-		process.exit(1);
+		process.exit(0);
 	});
