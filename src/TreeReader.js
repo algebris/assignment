@@ -52,7 +52,6 @@ module.exports.getTree = async (nodeName) => {
 	const flatTree = nodeName ? 
 		await tm.getByNodeName(nodeName) : 
 		await tm.getAll();
-	const tree = await makeNestedTree(flatTree);
-
-	return tree;
+	
+	return await makeNestedTree(flatTree);
 }

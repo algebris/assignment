@@ -4,7 +4,7 @@ const argv = require('minimist')(process.argv.slice(2));
 const db = require('./src/lib/db');
 
 function boot () {
-	const th = require('./src/TreeHelper');
+	const th = require('./src/TreeReader');
 	switch (argv._[0]) {
 		case 'fetch':
 			const id = argv._[1];

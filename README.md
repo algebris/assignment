@@ -4,6 +4,7 @@
 
 ```
 # git clone git@github.com:algebris/operam.git
+# cd operam
 # yarn install
 ```
 
