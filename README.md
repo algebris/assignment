@@ -1,4 +1,4 @@
-## Assignment
+## Coding challenge
 
 ### Installation 
 
@@ -29,8 +29,8 @@
 1. Fetch taxonomy from remote site 
 
 ```
-/lib/HttXmlReader.js
-/lib/TaxonomyReader.js
+/src/HttXmlReader.js
+/src/TaxonomyReader.js
 ```
 
 I proceeded from assumption that data could be fetched branch by branch using this URL pattern 

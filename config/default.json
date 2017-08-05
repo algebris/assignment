@@ -12,6 +12,6 @@
 	"db": {
 		"url": "mongodb://localhost:27017/image-net-archive",
 		"collection": "data_tmp",
-		"forceUpdate": true
+		"forceUpdate": false
 	}
 }

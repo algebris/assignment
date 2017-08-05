@@ -1,7 +1,7 @@
 const conf = require('config');
 const util = require('util');
 const argv = require('minimist')(process.argv.slice(2));
-const db = require('./src/db');
+const db = require('./src/lib/db');
 
 function boot () {
 	const th = require('./src/TreeHelper');
@@ -13,7 +13,7 @@ function boot () {
 			break;
 		case 'tree':
 			const nodeName = argv._[1];
-			return th.getSubtree(nodeName)
+			return th.getTree(nodeName)
 				.then(data =>
 					console.log(util.inspect(data, { depth: null }))
 				);
