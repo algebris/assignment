@@ -1,0 +1,21 @@
+{
+  "name": "test5",
+  "version": "1.0.0",
+  "description": "Test work for Operam",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "author": "Vyacheslav Frolov",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "cheerio": "^1.0.0-rc.2",
+    "config": "^1.26.1",
+    "lodash": "^4.17.4",
+    "minimist": "^1.2.0",
+    "mongodb": "^2.2.30",
+    "winston": "^2.3.1"
+  }
+}

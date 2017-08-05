@@ -1,0 +1,17 @@
+{
+	"uri": "http://image-net.org/python/tree.py/SubtreeXML?rootid=%s",
+	"rootNodeId": 82128,
+	"separator": " > ",
+	"maxSockets": 10,
+	"tagsDict": {
+		"tag": "synset",
+		"id": "synsetid",
+		"size": "subtree_size",
+		"name": "words"
+	},
+	"db": {
+		"url": "mongodb://localhost:27017/image-net-archive",
+		"collection": "data_tmp",
+		"forceUpdate": true
+	}
+}
