@@ -1,6 +1,6 @@
 const conf = require('config');
 const Promise = require('bluebird');
-const HttpXmlReader = require('./HttpXmlReader');
+const HttpXmlReader = require('./lib/HttpXmlReader');
 
 class TaxonomyReader extends HttpXmlReader {
 	constructor() {

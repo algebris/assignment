@@ -29,9 +29,12 @@
 1. Fetch taxonomy from remote site 
 
 ```
-/src/HttXmlReader.js
+/src/lib/HttXmlReader.js
 /src/TaxonomyReader.js
 ```
 
 I proceeded from assumption that data could be fetched branch by branch using this URL pattern 
-http://imagenet.stanford.edu/python/tree.py/SubtreeXML?rootid={id} so there should be a hundreds of requests. In order to optimize  
+http://imagenet.stanford.edu/python/tree.py/SubtreeXML?rootid={id} so there should be a hundreds of requests. In order to optimize it
+I desided to make parallel requesting to source. Thus using `conf.maxSockets` define number of opened connections to remote server and
+`keepAlive` option (see lib/HttpXmlReader.js) guaranteed that we don't break those connections.
+
