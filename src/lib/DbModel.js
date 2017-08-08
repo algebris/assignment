@@ -4,25 +4,37 @@ const conf = require('config');
 // this stratum abstracts from different databases 
 class DbModel {
 	constructor(colName) {
-		colName = colName || conf.get('db.collection');
-		this.col = db.collection(colName);
+		this.colName = colName || conf.get('db.collection');
+		this.proj = { _id: false };
+		this.col = this._init();
 	}
 
-	count(query, opts) {
-		return this.col.count(query, opts);
+	async _init() {
+		const dbh = await db;
+		return dbh.collection(this.colName);
 	}
 
-	insertMany(data) {
-		return this.col.remove()
-			.then(() => this.col.insertMany(data));
+	async count(query, opts) {
+		const c = await this.col;
+		return c.count(query, opts);
 	}
 
-	findOne(query, proj) {
-		return this.col.findOne(query, proj);
+	async insertMany(data) {
+		const c = await this.col;
+		return c.remove()
+			.then(() => c.insertMany(data));
 	}
 
-	find(query, proj) {
-		return this.col.find(query, proj);
+	async findOne(query, proj) {
+		const c = await this.col;
+		proj = Object.assign(this.proj, proj);
+		return c.findOne(query, proj);
+	}
+
+	async find(query, proj) {
+		const c = await this.col;
+		proj = Object.assign(this.proj, proj);
+		return c.find(query, proj).toArray();
 	}
 }
 

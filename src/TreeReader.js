@@ -2,7 +2,6 @@ const Promise = require('bluebird');
 const conf = require('config');
 const _ = require('lodash');
 const winston = require('winston');
-const db = require('./lib/db').get();
 const tr = require('./TaxonomyReader');
 const tm = require('./models/TreeModel');
 
@@ -50,7 +49,7 @@ module.exports.getTree = async (nodeName) => {
 	}
 
 	const flatTree = nodeName ? 
-		await tm.getByNodeName(nodeName) : 
+		await tm.getAllByNodeName(nodeName) : 
 		await tm.getAll();
 	
 	return await makeNestedTree(flatTree);

@@ -39,3 +39,19 @@ http://imagenet.stanford.edu/python/tree.py/SubtreeXML?rootid={id} so there shou
 I desided to make parallel requesting to source. Thus using `conf.maxSockets` define number of opened connections to remote server and
 `keepAlive` option (see lib/HttpXmlReader.js) guaranteed that we don't break those connections.
 
+```
+➜  test5 netstat | grep http
+tcp4       0    101  192.168.0.101.58322    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58321    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58320    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58319    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58318    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58317    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58316    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58315    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58314    imagenet.stanfor.http  ESTABLISHED
+tcp4       0    101  192.168.0.101.58293    imagenet.stanfor.http  ESTABLISHED
+tcp4       0      0  192.168.0.101.58200    s3-website-us-we.http  CLOSE_WAIT 
+...
+```
+

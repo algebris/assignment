@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Assignment</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.4/themes/default/style.min.css" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+</head>
+
+<body>
+	<div>
+		<input id="search" type="text">
+		<button>search</button>
+	</div>
+	<div id="jstree_demo_div"></div>
+	<script>
+		$(function () {
+			$('#jstree_demo_div').jstree({
+				plugins : ["themes","json_data"],
+				core: {
+					data: {
+						type: 'POST',
+						url: 'http://localhost:3000/api/tree/node',
+						data: function(node) {
+							return { node: this.get_path(node, ' > ') };
+						},
+						dataType: "json"
+					}
+				},
+				"types" : {
+	                "default" : {
+	                    "icon" : "fa fa-folder icon-state-warning icon-lg"
+	                },
+	                "file" : {
+	                    "icon" : "fa fa-file icon-state-warning icon-lg"
+	                }
+	            }
+			}); 
+		});
+	</script>
+</body>
+</html>

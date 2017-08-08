@@ -1,20 +1,17 @@
 const MongoClient = require('mongodb').MongoClient;
 const Promise = require('bluebird');
+const conf = require('config');
 
 let connection = null;
 
-module.exports.connect = (url) => new Promise((resolve, reject) => {
-    MongoClient.connect(url, { promiseLibrary: Promise }, function(err, db) {
-        if (err) { reject(err); return; };
-        resolve(db);
-        connection = db;
-    });
-});
-
-module.exports.get = () => {
-    if(!connection) {
-        throw new Error('Call connect first!');
-    }
-
+async function connect(url) {
+	url = url || conf.get('db.url');
+    connection = await MongoClient.connect(url, { promiseLibrary: Promise });
     return connection;
+}
+
+module.exports.connect = connect;
+
+module.exports.get = function() {
+	return connection ? connection : connect();
 }
