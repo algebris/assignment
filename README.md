@@ -112,9 +112,13 @@ I proceeded from assumption that THIS data exactly means the same structure as w
             "size": 4486,
             "children": []
         }
+    ]
 }
 ```
-I don't have a lot of time to write Tree UI within the bounds of this assignment so I chose jsTree plugin as a quite mature solution. I've been using it about 7 years ago developing this site (http://hapok.ru).
+I chose jsTree plugin as a quite mature solution. I've been using it about 7 years ago developing one site (it is still alive and work as it's expected).
+
+Search still in process ...
+
 
 
 
