@@ -1,0 +1,20 @@
+{
+  "name": "test5",
+  "description": "Test work for Operam",
+  "main": "index.js",
+  "authors": [
+    "Vyacheslav Frolov"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/algebris/operam",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jstree": "^3.3.4"
+  }
+}

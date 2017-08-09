@@ -3,3 +3,4 @@ tmp
 yarn.lock
 .DS_Store
 dist
+bower_components
