@@ -4,7 +4,7 @@ const _ = require('lodash');
 const winston = require('winston');
 const tr = require('./TaxonomyReader');
 const tm = require('./models/TreeModel');
-const errors = require('../lib/errors');
+const errors = require('./lib/errors');
 
 module.exports.storeTree = async (id) => {
 	const colSize = await tm.count();

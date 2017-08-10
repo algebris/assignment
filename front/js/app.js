@@ -73,12 +73,6 @@ $(document).ready(function() {
 			});
 	}
 
-	function clear() {
-		$(inst).jstree(true).refresh();
-	}
-
-
-
 	init();
 	createSearchEvent($(inst));
 });
