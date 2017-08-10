@@ -15,7 +15,7 @@ const cfg = {
 		dist: './dist',
 		html: './front/*.html',
 		css: './front/css/*.css',
-		js: './front/js/*.js',
+		js: './front/js/**/*.js',
 		json: './front/js/*.json',
 		index: './front/index.html',
 		bower: './bower_components'
@@ -39,8 +39,8 @@ gulp.task('copy', function() {
 gulp.task('js', () => {
 	return gulp.src(cfg.paths.src + '/js/app.js')
 		.pipe(plumber())
-		.pipe(browserify({ insertGlobals: true }))
-		.pipe(gulp.dest('./dist/js/'))
+		.pipe(browserify({ insertGlobals: false }))
+		.pipe(gulp.dest(cfg.paths.dist + '/js/'))
 		.pipe(connect.reload());
 });
 

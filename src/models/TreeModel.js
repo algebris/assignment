@@ -71,6 +71,23 @@ class TreeModel extends DbModel {
 
 		return children;
 	}
+
+	makeNestedTree(data, pathParameter) {
+		let levels = [{}];
+
+		data.forEach(item => {
+			const path = item[pathParameter].split(conf.get('separator'));
+			const level = path.length;
+			item[pathParameter] = path.pop();
+			
+			levels.length = level;
+			levels[level-1].children = levels[level-1].children || [];
+			levels[level-1].children.push(item);
+			levels[level] = item;
+		});
+
+		return levels[0].children;
+	}
 }
 
 module.exports = new TreeModel();

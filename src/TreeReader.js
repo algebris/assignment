@@ -6,23 +6,6 @@ const tr = require('./TaxonomyReader');
 const tm = require('./models/TreeModel');
 const errors = require('../lib/errors');
 
-async function makeNestedTree(data) {
-	let levels = [{}];
-
-	data.forEach(item => {
-		const path = item.name.split(conf.get('separator'));
-		const level = path.length;
-		item.name = path.pop();
-		
-		levels.length = level;
-		levels[level-1].children = levels[level-1].children || [];
-		levels[level-1].children.push(item);
-		levels[level] = item;
-	});
-
-	return levels[0].children;
-}
-
 module.exports.storeTree = async (id) => {
 	const colSize = await tm.count();
 	const rootId = id || conf.get('rootNodeId');
@@ -53,5 +36,5 @@ module.exports.getTree = async (nodeName) => {
 		await tm.getAllByNodeName(nodeName) : 
 		await tm.getAll();
 	
-	return await makeNestedTree(flatTree);
+	return tm.makeNestedTree(flatTree, 'name');
 }
