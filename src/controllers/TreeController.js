@@ -7,7 +7,13 @@ module.exports.getNodeChildren = (nodeName, includeRoot) => {
 		.then(children => {
 			children.map(item => {
 				item.text = item.name;
-				item.children = (item.size === 0) ? false : true;
+				if (item.size === 0) {
+					item.children = false;
+					item.type = 'leaf';
+				} else {
+					item.children = true;
+					item.type = 'folder';
+				}
 				return item;
 			});
 			
@@ -17,7 +23,7 @@ module.exports.getNodeChildren = (nodeName, includeRoot) => {
 				data = children.shift();
 				data.state = { 'opened':true };
 				data.children = children;
-				data.type = 'folder';
+				data.type = 'root';
 			}
 			
 			return data;
@@ -27,9 +33,10 @@ module.exports.getNodeChildren = (nodeName, includeRoot) => {
 module.exports.search = async (node) => {
 	return tm.search(node)
 		.then(data => {
-			if(data.length === 0)
-				return [];
 			let tree = {};
+			if(data.length === 0) {
+				return [];
+			}
 			
 			data.forEach(item => {
 				let path = item.name.split(conf.get('separator'));
@@ -43,6 +50,9 @@ module.exports.search = async (node) => {
 						if(item.name === parent) {
 							tree[parent].size = item.size;
 							tree[parent].opened = false;
+							tree[parent].type = 'leaf';
+						} else {
+							tree[parent].type = 'folder';
 						}
 					}
 					path.pop();
@@ -51,11 +61,9 @@ module.exports.search = async (node) => {
 			});
 
 			tree = _.sortBy(tree, ['text']);
+			tree[0].type = 'root';
 			tree = tm.makeNestedTree(tree, 'text');
-			// let _root  = tree.shift();
-			// console.log(tree);
-			
-			// return { text: _root.text, children: tree };
+
 			return tree.shift();
 		})
 };

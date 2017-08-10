@@ -4,6 +4,8 @@
 	<meta charset="UTF-8">
 	<title>Assignment</title>
 	<link rel="stylesheet" href="/vendor/jstree/dist/themes/default/style.min.css" />
+	<link rel="stylesheet" href="/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="/css/style.css" />
 
 	<script src="/vendor/jquery-3.2.1.min.js"></script>
 	<script src="/vendor/jstree/dist/jstree.min.js"></script>
@@ -18,70 +20,6 @@
 		<button id="clear">clear</button>
 	</div>
 	<div id="imageTree"></div>
-	<script>
-	$(document).ready(function() {
-
-		var search = $('#search');
-		var button = search.siblings('button');
-		var instance = $('#imageTree');
-
-		function init() {
-			instance.jstree({
-				plugins : ["themes","json_data", "search", "types"],
-				core: {
-					data: {
-						type: 'POST',
-						url: 'http://localhost:3000/api/tree/node',
-						data: function(node) {
-							return { node: this.get_path(node, ' > ') };
-						},
-						dataType: "json"
-					}
-				},
-				types: {
-					folder: {
-						icon: "glyphicon glyphicon-flash"
-					},
-					leaf: {
-						icon: "glyphicon glyphicon-ok"	
-					}
-				}
-			});
-		}
-		
-		init();
-
-		instance.on('refresh.jstree', function(evt) {
-			var text = search.val();
-			if(text) {
-				instance.jstree('search', text);
-			}
-		});
-		
-		button.on('click', function(evt) {
-			var text = search.val();
-			if(evt.target.id === "find") {
-				find(text);
-			} else {
-				instance.jstree("destroy");
-				init();
-			}
-		});
-
-		function find(text) {
-			$.post("http://localhost:3000/api/tree/search", { node : text })
-				.done(function(data) {
-					if(data.length !== 0) {
-						instance.jstree(true).settings.core.data = data;
-						instance.jstree(true).refresh();						
-					}
-				});
-		}
-
-		function clear() {
-			instance.jstree(true).refresh();
-		}
-	});
-	</script>
+	<script src="/js/app.js"></script>
 </body>
 </html>
