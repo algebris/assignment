@@ -41,6 +41,13 @@ $(document).ready(function() {
 				el.jstree('search', text);
 			}
 		});
+		el.on('open_node.jstree', function (event, data) {
+		    data.instance.set_type(data.node,'folder-open');
+		});
+
+		el.on('after_close.jstree', function (event, data) {
+		    data.instance.set_type(data.node,'folder');
+		});
 	}
 	
 	button.on('click', function(evt) {
@@ -70,13 +77,7 @@ $(document).ready(function() {
 		$(inst).jstree(true).refresh();
 	}
 
-	$(inst).on('open_node.jstree', function (event, data) {
-	    data.instance.set_type(data.node,'folder-open');
-	});
 
-	$(inst).on('after_close.jstree', function (event, data) {
-	    data.instance.set_type(data.node,'folder');
-	});
 
 	init();
 	createSearchEvent($(inst));
