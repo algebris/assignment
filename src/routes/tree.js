@@ -14,7 +14,15 @@ router.post('/node', (req, res, next) => {
 	
 	tc.getNodeChildren(node, includeRoot)
 		.then(data => res.json(data))
-		.catch(err => console.error(err));
+		.catch(err => next(err));
+});
+
+router.post('/search', (req, res, next) => {
+	let node = req.body.node;
+
+	tc.search(node)
+		.then(data => res.json(data))
+		.catch(err => next(err));
 });
 
 module.exports = router;

@@ -1,5 +1,6 @@
 const DbModel = require('../lib/DbModel');
 const conf = require('config');
+const errors = require('../lib/errors');
 
 class TreeModel extends DbModel {
 	constructor() {
@@ -11,7 +12,7 @@ class TreeModel extends DbModel {
 		const _root = await this.getRootNode(nodeName);
 
 		if(_root.length === 0) {
-			return Promise.reject(`Can't find node by name "${nodeName}"`);
+			throw errors.retrieveDataError('Can\'t find node');
 		}
 
 		let subTree = await this.find({ 'name': { $regex: `^${nodeName}.*` }});
@@ -43,10 +44,10 @@ class TreeModel extends DbModel {
 		nodeName = nodeName || _root[0].name;
 
 		if(_root.length === 0) {
-			return Promise.reject(`Can't find node by name "${nodeName}"`);
+			throw errors.retrieveDataError('Can\'t find node by name');
 		}
 		const tsep = conf.get('separator').trim();
-		let children = await this.find({ 'name': { $regex: `^${nodeName}${this.sep}[^${tsep}]*$`}});
+		let children = await this.find({ 'name': { $regex: `^${nodeName}${this.sep}[^${tsep}]*$`} });
 		children = this.chopPrefixes(children, nodeName + this.sep);
 		
 		if(includeRoot) {
@@ -62,6 +63,13 @@ class TreeModel extends DbModel {
 			this.find({ 'name': { $regex: `^${nodeName}$` }}) :
 			[ await this.findOne() ];
 		return _root;
+	}
+
+	async search(node) {
+		const tsep = conf.get('separator').trim();
+		let children = await this.find({ 'name': { $regex: `^.*${node}[^${tsep}]*$`} });
+
+		return children;
 	}
 }
 

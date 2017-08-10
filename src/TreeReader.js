@@ -4,6 +4,7 @@ const _ = require('lodash');
 const winston = require('winston');
 const tr = require('./TaxonomyReader');
 const tm = require('./models/TreeModel');
+const errors = require('../lib/errors');
 
 async function makeNestedTree(data) {
 	let levels = [{}];
@@ -27,7 +28,7 @@ module.exports.storeTree = async (id) => {
 	const rootId = id || conf.get('rootNodeId');
 
 	if(colSize > 0 && !conf.get('db.forceUpdate')) {
-		return Promise.reject('Collection already exists. Use config settings "db.forceUpdate = true".');
+		throw errors.updateDataError('Collection already exists. Use config settings "db.forceUpdate = true".');
 	}
 
 	// fetch data from remote web-site
@@ -45,7 +46,7 @@ module.exports.getTree = async (nodeName) => {
 	const colSize = await tm.count();
 
 	if(colSize === 0) {
-		return Promise.reject('Found an empty collection, please firstly fill it in.');
+		throw errors.resourceNotFoundError('Found an empty collection, please firstly fill it in.');
 	}
 
 	const flatTree = nodeName ? 

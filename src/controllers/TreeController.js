@@ -18,6 +18,9 @@ module.exports.getNodeChildren = (nodeName, includeRoot) => {
 			}
 			
 			return data;
-		})
+		});
+};
 
+module.exports.search = (node) => {
+	return tm.search(node);
 };
