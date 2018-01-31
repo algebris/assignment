@@ -3,7 +3,7 @@
 ### Installation 
 
 ```
-# git clone git@github.com:algebris/operam.git
+# git clone git@github.com:algebris/assignment.git
 # cd operam
 # yarn install
 ```
